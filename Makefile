@@ -1,4 +1,5 @@
-SRCS = addresses.cpp
+SRCS = src/addresses.cpp
+INCL = include/addresses.hpp
 M_SRC = main.cpp
 T_SRC = tester.cpp
 OBJS = addresses.o
@@ -13,14 +14,14 @@ $(M_EXEC): $(OBJS) $(M_OBJS)
 $(T_EXEC): $(OBJS) $(T_OBJS)
 	clang++ $(OBJS) $(T_OBJS) -o $(T_EXEC)
 
-main.o: main.cpp addresses.hpp
+main.o: main.cpp $(INCL)
 	clang++ -c main.cpp
 
-tester.o: tester.cpp addresses.hpp
+tester.o: tester.cpp $(INCL)
 	clang++ -c tester.cpp
 
-addresses.o: addresses.cpp addresses.hpp
-	clang++ -c addresses.cpp
+addresses.o: src/addresses.cpp include/addresses.hpp
+	clang++ -c src/addresses.cpp
 
 run: main.out
 	./main.out

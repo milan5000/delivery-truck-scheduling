@@ -2,7 +2,7 @@
 // Contains all test code.
 // Yes there's probably a better way to do TDD...
 #include <iostream>
-#include "addresses.hpp"
+#include "include/addresses.hpp"
 
 using std::cout;
 using std::endl;

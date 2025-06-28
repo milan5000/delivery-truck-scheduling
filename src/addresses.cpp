@@ -1,6 +1,6 @@
 // addresses.cpp
 #include <cmath>
-#include "addresses.hpp"
+#include "../include/addresses.hpp"
 
 using std::abs;
 using std::pow;
