@@ -26,6 +26,29 @@ bool test_addresses() {
         return false;
     }
 
+    AddressList myList;
+
+    if (myList.euc_length() != 0.0 ||
+        myList.man_length() != 0.0 ||
+        myList.euc_index_closest_to(triangle) != -1 ||
+        myList.man_index_closest_to(triangle) != -1) {
+        return false;
+    }
+
+    myList.add_address(triangle);
+    myList.add_address(other_triangle);
+    myList.add_address(origin);
+
+    Address other(5.0, 0.0, 5);
+
+    if (myList.euc_length() != 15.0 ||
+        myList.man_length() != 21.0 ||
+        myList.euc_index_closest_to(other) != 0 ||
+        myList.man_index_closest_to(other) != 2 ||
+        myList.get_address_at(1).get_y() != other_triangle.get_y()) {
+        return false;
+    }
+
     return true;
 }
 
