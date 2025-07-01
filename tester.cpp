@@ -9,8 +9,6 @@ using std::endl;
 
 // test functions return true on success
 
-// Tests: addresses.cpp addresses.hpp
-
 bool test_addresses() {
     Address origin(0.0, 0.0, 5);
     Address triangle(3.0, 4.0, 5);
@@ -50,12 +48,36 @@ bool test_addresses() {
     }
 
     Route myRoute(triangle, origin);
-    myRoute.add_address(other_triangle);
-    myRoute.add_address(triangle);
+    myRoute.add_unique_address(triangle);
+    myRoute.add_unique_address(other_triangle);
 
     if (myRoute.get_address_at(1) != other_triangle) {
         return false;
     }
+
+    return true;
+}
+
+bool test_greedy_route() {
+    Route deliveries(0);
+
+    deliveries.add_address(Address(0, 5, 0));
+    deliveries.add_address(Address(5, 0, 0));
+    deliveries.add_address(Address(5, 5, 0));
+    
+    //std::cerr << "Travel in order: " << deliveries.euc_length() << "\n";
+
+    if (deliveries.size() != 5) return false;
+
+    Route route = deliveries.greedy_route(false);
+
+    if (route.size() != 5) return false;
+
+    double len = route.euc_length();
+
+    // std::cerr << "Square route: " << route.as_string() << "\nhas length " << len << "\n";
+
+    if (len != 20) return false;
 
     return true;
 }
@@ -70,6 +92,15 @@ int main() {
 
     cout << "Addresses: ";
     if (test_addresses()) {
+        cout << "success\n";
+        total_pass++;
+    } else {
+        cout << "failure\n";
+    }
+    total++;
+
+    cout << "Greedy Routing: ";
+    if (test_greedy_route()) {
         cout << "success\n";
         total_pass++;
     } else {
