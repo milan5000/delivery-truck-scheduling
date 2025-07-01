@@ -1,13 +1,10 @@
 // main.cpp
 #include <iostream>
-#include "include/addresses.hpp"
 
 using std::cout;
 
 int main() {
     cout << "Hello world!\n";
-    Address origin(0.0, 0.0, 5);
-    Address triangle(3.0, 4.0, 5);
-
+    // file empty for now, check tester.cpp for implementation
     return 0;
 }

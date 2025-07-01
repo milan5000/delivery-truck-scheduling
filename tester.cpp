@@ -49,6 +49,14 @@ bool test_addresses() {
         return false;
     }
 
+    Route myRoute(triangle, origin);
+    myRoute.add_address(other_triangle);
+    myRoute.add_address(triangle);
+
+    if (myRoute.get_address_at(1) != other_triangle) {
+        return false;
+    }
+
     return true;
 }
 
