@@ -27,8 +27,10 @@ class Address {
 class AddressList {
     protected:
         vector<Address> addrs;
+        double vectorial_length(vector<Address> path, bool man_norm) const;
     public:
         AddressList();
+        virtual void bulk_add_addresses(vector<Address> more_addrs);
         virtual void add_address(Address addr);
         const Address &get_address_at(int index) const;
         const Address &get_final_addr() const;
@@ -40,6 +42,7 @@ class AddressList {
         int man_index_closest_to(Address addr) const;
         AddressList greedy_route(bool man_norm) const;
         string as_string() const;
+        AddressList opt2_rearrange(bool man_norm) const;
 };
 
 class Route : public AddressList {
@@ -47,9 +50,11 @@ class Route : public AddressList {
         Route(int depot_delivery_date);
         Route(Address startDepot, Address endDepot);
         virtual void add_address(Address addr) override;
+        virtual void bulk_add_addresses(vector<Address> more_addrs) override;
         void add_unique_address(Address addr);
         const Address &get_final_nondepot() const;
         Route greedy_route(bool man_norm) const;
+        Route opt2_rearrange(bool man_norm) const;
 };
 
 #endif

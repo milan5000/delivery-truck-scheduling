@@ -1,6 +1,7 @@
 // tester.cpp
 // Contains all test code.
 // Yes there's probably a better way to do TDD...
+#include <cmath>
 #include <iostream>
 #include "include/addresses.hpp"
 
@@ -82,6 +83,26 @@ bool test_greedy_route() {
     return true;
 }
 
+bool test_opt2() {
+    Route deliveries(0);
+
+    deliveries.add_address(Address(0, 5, 0));
+    deliveries.add_address(Address(5, 0, 0));
+    deliveries.add_address(Address(5, 5, 0));
+
+    // Travel in order
+
+    if (std::abs(deliveries.euc_length() - (10.0 + 10.0*std::sqrt(2.0))) > 0.01) return false;
+
+    Route opt2route = deliveries.opt2_rearrange(false);
+
+    // Should be square
+
+    if (std::abs(opt2route.euc_length() - 20.0) > 0.01) return false;
+
+    return true;
+}
+
 // Results
 
 int main() {
@@ -101,6 +122,15 @@ int main() {
 
     cout << "Greedy Routing: ";
     if (test_greedy_route()) {
+        cout << "success\n";
+        total_pass++;
+    } else {
+        cout << "failure\n";
+    }
+    total++;
+
+    cout << "2-opt Modification: ";
+    if (test_opt2()) {
         cout << "success\n";
         total_pass++;
     } else {
